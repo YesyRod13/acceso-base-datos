@@ -1,0 +1,28 @@
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tarea2.settings')
+import django
+django.setup()
+
+
+from estatico.models import equipo
+from faker import Faker
+
+fake_generator = Faker()
+
+
+
+def populate(N=5):
+    for entry in range(N):
+        fake_nombre = fake_generator.first_name()
+        fake_apellido = fake_generator.last_name()
+        fake_email = fake_generator.email()
+        fake_telefono = fake_generator.phone_number()
+        
+        falso = equipo.objects.get_or_create(nombre=fake_nombre, apellido=fake_apellido,
+                                             email=fake_email, telefono=fake_telefono)
+
+
+if __name__ == '__main__':
+    print("Ejecutando...")
+    populate(30)
+    print("Se ejecuto con exito!")
